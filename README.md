@@ -16,14 +16,6 @@ Direct into /frontend/ folder, and start the App<br>
 > npm i<br>
 > npm run serve<br>
 
-
-### Problem resolving
-If you have problems when compiling and starting app, try to remove node_modules and then type<br>
-> npm i<br>
-
-to re-install modules.
-
-
 ### Demo
 You can click the image here to watch the demo for conveniently understand our project
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/1o9b4yZUucg/0.jpg)](https://www.youtube.com/watch?v=1o9b4yZUucg)
