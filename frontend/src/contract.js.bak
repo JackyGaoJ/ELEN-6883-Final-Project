@@ -1,0 +1,24 @@
+import Mcp from "./mcp";
+
+const Myerc20 = require("./NFTtoken.json");
+
+const McpFunc = new Mcp();
+
+McpFunc.Contract.setProvider("http://13.212.177.203:8765");
+
+const tokenAddress = "0x834132E4e2Db04735100455648F74860889cbe89";
+//const tokenAddress1 = "0x458E1b1cf01D15C142A66F4dBDa6f1f01802124d";
+const Instance = new McpFunc.Contract(
+    Myerc20.abi,
+    tokenAddress
+);
+Instance.deploy({
+  data: '',
+  arguments: ["123","234"]
+});
+const Contract = {
+    tokenAddress,
+    Instance,
+};
+
+export default Contract;

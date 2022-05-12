@@ -1,0 +1,153 @@
+<template>
+  <div class="hello">
+    <h1 v-show="isConnected">{{ account }}</h1>
+    <button  @click="getconnect">GET Connect </button>
+    <h1 >account address {{ acco }}</h1>
+   
+     <h1 >Set sale account</h1>
+    <pre></pre>
+    <input type="text" v-model="toaccount" size="50" placeholder="Set sale account" />
+    <pre></pre>
+   
+    <button  @click="connect">Connect Ale</button>
+    <div style="color: #f00" v-show="isConnected">Connect Success!</div>
+    <div >
+		<ul>
+			<li	v-for="v in list" :key="v.value"	@click="approveMoney(v.price.v.tokenId)">
+				<img v-bind:src="v.src" alt="">
+				<h4>{{v.des}}</h4>
+				<p>price:{{v.price}}</p>
+			
+			</li>
+		</ul>
+	</div>
+
+ 
+  </div>
+</template>
+
+<script>
+
+import services from "@/api";
+
+export default {
+  data() {
+    return {
+      account: "",
+      toaccount:"0x834132E4e2Db04735100455648F74860889cbe89",
+      balanceOfamout:"0",
+      isConnected: false,
+      acco:"",
+       list:[
+              {
+                  value:'0',
+                  src:require('../assets/apple.png'),
+                  des:'apple',
+                  price:1,
+                  tokenId:0,
+              },
+              {
+                  value:'1',
+                  src:require('../assets/orige.png'),
+                  des:'orige',
+                  price:2,
+                  tokenId:1,
+              },
+              {
+                  value:'2',
+                  src:require('../assets/banana.png'),
+                  des:'banana',
+                  price:3,
+                  tokenId:2,
+              }
+          ]
+     
+    };
+  },
+  watch: {
+    "$store.state.dapp": {
+      handler(val) {
+        this.account = val.account;
+        this.isConnected = val.isConnected;
+      },
+      immediate: true,
+      deep: true,
+    },
+  },
+  methods: {
+   getGreeter() {
+   console.log("getGreeter");
+   services.getGreeting().then(res => {
+        console.log('getGreeting');
+        console.log(res);
+      });
+    },
+    
+   getconnect() {
+    console.log("getconnect");
+    console.log(window["aleereum"]);
+      window["aleereum"] && window["aleereum"].connect();
+      console.log(window["aleereum"].account);
+      this.acco=window["aleereum"].account;
+    //  return this.acco;
+    },
+    connect() {
+    console.log("window");
+    console.log(window["aleereum"]);
+      window["aleereum"] && window["aleereum"].connect();
+    },
+    getbalanceOf() {
+    console.log('getbalanceOf',this.account);
+    services.getbalanceOf(this.account).then(res => {
+        console.log('getbalanceOf');
+        console.log(res);
+      });
+    },
+    approveMoney(price,tokenId) {
+     console.log('approveMoney',this.account);
+    services.getName().then(res => {
+        console.log('getName');
+        console.log(res);
+      });
+      services.approve(this.account,price,this.toaccount,tokenId).then((res) => {
+        console.log(res);
+      });
+    },
+  },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+h3 {
+  margin: 40px 0 0;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+
+#box ul{
+		display: flex;
+		flex-wrap: wrap;
+        position: absolute;
+        top: 220px;
+	}
+#box li{
+		padding: 3px;
+		list-style: none;
+		margin-right: 15px;
+		border: 1px solid #eee;
+}
+#box img{
+		width: 200px;
+		height: 150px;
+}
+</style>
